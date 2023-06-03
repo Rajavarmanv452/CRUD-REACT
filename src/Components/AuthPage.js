@@ -9,7 +9,7 @@ import { authdata } from "../Data/authData";
 
 const AuthPage = () => {
 
- const [auth,setAuth] = useState(authdata);
+ const [auth] = useState(authdata);
   const [loginName,setLoginName] = useState("");
   const[password,setPassword] = useState("")
    const [error,setError]=useState(false)
@@ -24,7 +24,7 @@ const AuthPage = () => {
         setError(true)
   }
  }
-
+ 
     return(
         <Base
         tittle='Please login or Signup'

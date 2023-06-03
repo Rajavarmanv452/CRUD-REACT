@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Redirect, Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import './App.css';
-import Base from './Base/base';
+// import Base from './Base/base';
 import AddStudent from './Components/AddStudent';
 import AuthPage from './Components/AuthPage';
 import Dashboard from './Components/Dashboard';

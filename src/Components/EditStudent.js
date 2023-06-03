@@ -23,7 +23,7 @@ const Editstudent = ({studentData,setStudents})=>{
           setBatch(student.batch)
           setExperience(student.experience)
           setGender(student.gender)
-     },[])
+     },[student.batch, student.experience, student.gender, student.id, student.idx,  student.name])
 
 
 
