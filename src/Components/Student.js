@@ -43,9 +43,18 @@ export function StudentDetails({studentData,setStudents}){
 //         setGender("")
 //        }
      //Delete a new data
-     const deleteStudentData = (studID)=>{
-          const selectedStudent = studentData.filter((stud)=> stud.id !== studID)
-       setStudents(selectedStudent);
+     const deleteStudentData = async(studID)=>{
+      try {
+         const res = await fetch(`https://6497ab149543ce0f49e15313.mockapi.io/students/${studID}`,{method:"DELETE"})
+         const data = await res.json()
+         console.log(data)
+
+         const selectedStudent = studentData.filter((stud)=> stud.id !== studID)
+         setStudents(selectedStudent);
+
+      } catch (error) {
+        console.log(error)
+      }
      }  
 
     //  //update functionality

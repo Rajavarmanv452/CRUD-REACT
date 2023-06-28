@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Redirect, Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import './App.css';
@@ -12,12 +12,21 @@ import NoPage from './Components/NoPage';
 import { StudentDetails } from './Components/Student';
 import StudentProfile from './Components/StudentProfile';
 import WelcomePage from './Components/WelcomePage';
-import { data } from './Data/data';
+
 
 
 function App() {
 
-  const [studentData,setStudents]= useState(data)
+  const [studentData,setStudents]= useState([])
+  useEffect(()=>{
+    const getStudentDetails = async()=>{
+      const res = await fetch(`https://6497ab149543ce0f49e15313.mockapi.io/students`
+      ,{method:"GET"});
+      const data = await res.json()
+      setStudents(data)
+    }
+    getStudentDetails()
+  },[])
 
   return (
     <div className="App">

@@ -1,6 +1,6 @@
 export const authdata= [
      {
         name:"admin",
-        password:"password123"
+        password:"p123"
      }
 ]

@@ -2,11 +2,18 @@ import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Base from "../Base/base";
+import * as yup from "yup"
 
+export const studentValidationSchema = yup.object({
+    name: yup.string().required("Please fill the Name"),
+    batch:yup.string().required("Please Fill the Batch").min(5,"Fill the Proper batch name"),
+    gender:yup.string().required("please specify Your Gender"),
+    education:yup.string().required("it is not bad tell your education")
+})
 
 const AddStudent = ({studentData,setStudents})=>{
     const history = useHistory();
-    const [id,setId]= useState("")
+    // const [id,setId]= useState("")
     const [name,setName]= useState("")
     const [batch,setBatch]= useState("")
     const [experience,setExperience]= useState("")
@@ -14,17 +21,28 @@ const AddStudent = ({studentData,setStudents})=>{
     // const [showAdd,setShowAdd] = useState(true)
 
     // create a new data
-    const addNewStudent = ()=> {
-        const newStudent = {id,name,batch,gender,experience}
-        
-        setStudents([...studentData,newStudent])
-        setId("")
+    const addNewStudent = async ()=> {
+        const newStudent = {name,batch,gender,experience}
+        try {
+            const response = await fetch (`https://6497ab149543ce0f49e15313.mockapi.io/students`,
+            {method:"POST",
+             body:JSON.stringify(newStudent),
+             headers:{"Content-Type":"application/json"},
+        })
+        const data = await response.json()
+
+        setStudents([...studentData,data])
+        // setId("")
         setName("")
         setBatch("")
         setExperience("")
         setGender("")
         //add panathum page ku redirect aaga 
         history.push("/students")
+
+        } catch (error) {
+            console.log(error)
+        }
        }
 
     return(
@@ -33,11 +51,11 @@ const AddStudent = ({studentData,setStudents})=>{
         description="You can add a Student Data">
 
         <div className="input-section">
-           <TextField 
+           {/* <TextField 
            fullWidth label="Enter the Id" 
            onChange={(event)=>setId(event.target.value)}
            value={id}
-           id="fullwidth"/>
+           id="fullwidth"/> */}
 
            <TextField 
            fullWidth label="Enter the Name" 

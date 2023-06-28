@@ -29,30 +29,41 @@ const Editstudent = ({studentData,setStudents})=>{
 
 
 
-    const updateStudentData = ()=>{
+    const updateStudentData = async ()=>{
 
-        // select and find our student
-          const editStudentIndex = studentData.findIndex((stud)=>stud.id === editId)
-  
-        //we nee update object
-          const updateObj = {
-            id,
-            name,
-            batch,
-            gender,
-            experience
-          }
-          //change the updated object in specific data
-          studentData[editStudentIndex]=updateObj;
-          //set the student data
-          setStudents([...studentData])
-          setIdx("")
-          setName("")
-          setBatch("")
-          setExperience("")
-          setGender("")
-          history.push("/students")
-       }
+     try {
+      
+      //we nee update object
+         const updateObj = {
+           id,
+           name,
+           batch,
+           gender,
+           experience
+         }
+          //fetch and update data
+          const response = await fetch(`https://6497ab149543ce0f49e15313.mockapi.io/students/${id}`,
+          { method:"PUT",
+            body:JSON.stringify(updateObj),
+            headers:{"Content-Type":"application/json"}
+          })
+          const data = await response.json()
+                // select and find our student
+         const editStudentIndex = studentData.findIndex((stud)=>stud.id === editId)
+         //change the updated object in specific data
+         studentData[editStudentIndex]=data;
+         //set the student data
+         setStudents([...studentData])
+         setIdx("")
+         setName("")
+         setBatch("")
+         setExperience("")
+         setGender("")
+         history.push("/students")
+     } catch (error) {
+        console.log (error)
+     }
+     }
   
   
 
